@@ -151,7 +151,7 @@ class EXT_MODEL_User extends SYS_Model_Database
 			
 		);
 		
-		sys::set_config_items(&$this, 'user_model');
+		sys::set_config_items($this, 'user_model');
 
 		if ( ! empty(sys::$config->user_model_fields))
 		{
@@ -300,7 +300,25 @@ class EXT_MODEL_User extends SYS_Model_Database
 		
 		if (isset($row->u_ratio)) $row->u_ratio = ($row->u_ratio > 0) ? '+' . $row->u_ratio : $row->u_ratio;
 		
-		$row->profile_url = '/users/' . (isset($row->uid) ? $row->uid : $row->id) . '/';
+		if ($this->user->profile_link_tpl)
+		{
+			$row->profile_url = '';//$this->user->profile_link[0]; '/users/' . (isset($row->uid) ? $row->uid : $row->id) . '/';
+			foreach ($this->user->profile_link_tpl as $i => $val)
+			{
+				if ( ! isset($row->$val))
+					$row->profile_url .= $val;
+				else
+				{
+					if ($val == 'id') $val = (isset($row->uid) ? 'uid' : 'id');
+					$row->profile_url .= $row->$val;
+				}
+			}
+		}
+		else
+		{
+			$row->profile_url = '/users/' . (isset($row->uid) ? $row->uid : $row->id) . '/';
+		}
+		
 		$row->full_link = $row->profile_url;
 		
 		return parent::prepare_row_result($row);
@@ -310,8 +328,7 @@ class EXT_MODEL_User extends SYS_Model_Database
 	
 	public function check_login($login)
 	{
-		if ($this->user->group_id == 1 || $this->user->id && $this->user->login == $login) return TRUE;
-		
+		if ( ! $login || $this->user->group_id == 1 || $this->user->id && $this->user->login == $login) return TRUE;
 		$this->form->set_error_message('callback[ext.user.model.check_login]', 'Пользователь с таким именем уже зарегистрирован!');
 		
 		return ! $this->db->where('login = ?', $login)->count_all($this->table());
@@ -321,7 +338,7 @@ class EXT_MODEL_User extends SYS_Model_Database
 	
 	public function check_email($email)
 	{
-		if ($this->user->group_id == 1 || $this->user->id && $this->user->email == $email) return TRUE;
+		if ( ! $email || $this->user->group_id == 1 || $this->user->id && $this->user->email == $email) return TRUE;
 		
 		$this->form->set_error_message('callback[ext.user.model.check_email]', 'Пользователь с таким e-mail адресом уже зарегистрирован!');
 		
@@ -338,7 +355,15 @@ class EXT_MODEL_User extends SYS_Model_Database
 			return TRUE;
 		}
 		
-		return md5($password . $this->user->option('salt'));
+		switch ($this->user->option('password_hash_type'))
+		{
+			case 'old':
+				return md5($this->user->option('salt') . $password);
+
+			case 'md5':
+			default:
+				return md5($password . $this->user->option('salt'));
+		}
 	}
 	
 	//--------------------------------------------------------------------------

@@ -20,7 +20,8 @@ class EXT_User
 		'autologin_field'  => 'autologin',
 		'autologout_field' => 'autologout',
 
-		'salt' => 'ak&23d0Xq1'
+		'salt'               => 'ak&23d0Xq1',
+		'password_hash_type' => 'md5',
 	);
 	
 	public $groups = array(
@@ -49,6 +50,9 @@ class EXT_User
 			{
 				$this->login($login, $password);
 			}
+		}
+		elseif ( ! empty($_POST[$this->option('autologout_field')])) {
+			$this->logout();
 		}
 		else
 		{

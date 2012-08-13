@@ -178,7 +178,7 @@ class EXT_COM_User extends SYS_Component
 			$data['login'] = $user->name ? $user->name : $user->login;
 			$this->load->library('Mail');
 			$this->mail->send_to_user($user->id, 'password_recovery', $data);
-			echo($data['recovery_key']);
+			
 			$this->template->message = 'На ваш e-mail было отправлено письмо с дальнейшими указаниями по восстановлению пароля.';
 		}
 	}
