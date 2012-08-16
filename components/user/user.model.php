@@ -23,11 +23,11 @@ class EXT_MODEL_User extends SYS_Model_Database
 	
 	//--------------------------------------------------------------------------
 	
-	public function __construct(&$ext)
-	{
-		parent::__construct();
-		$this->user =& $ext;
-	}
+	// public function __construct(&$ext)
+	// {
+	// 	parent::__construct();
+	// 	$this->user =& is_array($ext) ? $ext[0] : $ext;
+	// }
 	
 	//--------------------------------------------------------------------------
 	

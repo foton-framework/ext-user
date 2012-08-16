@@ -38,9 +38,12 @@ class EXT_User
 		
 		$this->set_session_id();
 		
-		require dirname(__FILE__) . '/user' . MODEL_EXT;
-		$this->model = new EXT_MODEL_User(&$this);
+		// require dirname(__FILE__) . '/components/user/user' . MODEL_EXT;
+		// $this->model = new EXT_MODEL_User(&$this);
 		
+		$this->model =& sys::$lib->load->model('users', array(&$this));
+		$this->model->user =& $this;
+
 		if ( ! empty($_POST[$this->option('autologin_field')]))
 		{
 			$login    = isset($_POST[$this->option('login_field')])    ? $_POST[$this->option('login_field')]    : NULL;
