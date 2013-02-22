@@ -8,7 +8,7 @@ class EXT_MODEL_User extends SYS_Model_Database
 	
 	public $table      = 'users';
 	
-	public $name        = 'Статьи';
+	public $name        = 'Пользователи';
 	public $add_action  = TRUE;
 	public $list_action = TRUE;
 	
