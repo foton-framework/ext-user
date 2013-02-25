@@ -300,7 +300,7 @@ class EXT_MODEL_User extends SYS_Model_Database
 
 		if (isset($row->u_ratio)) $row->u_ratio = ($row->u_ratio > 0) ? '+' . $row->u_ratio : $row->u_ratio;
 
-		if ($this->user->profile_link_tpl)
+		if (isset($this->user->profile_link_tpl))
 		{
 			$row->profile_url = '';//$this->user->profile_link[0]; '/users/' . (isset($row->uid) ? $row->uid : $row->id) . '/';
 			foreach ($this->user->profile_link_tpl as $i => $val)
