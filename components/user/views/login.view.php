@@ -1,16 +1,16 @@
-<? $this->seo->title('Вход для пользователей') ?>
-<? $this->seo->h1('Вход для пользователей') ?>
+<? $this->template->title('Вход для пользователей') ?>
+<? $this->template->h1('Вход для пользователей') ?>
 
 <?=$this->form->form_errors() ?>
 
 <div class="box">
-		
+
 	<?=h_form::open() ?>
-		
+
 		<?=h_form::hidden($this->user->option('autologin_field'), 1) ?>
-		
+
 		<?=h_form::hidden('back_link', hlp::back_link()) ?>
-		
+
 		<table class="wrapper">
 			<tr>
 				<td>
@@ -27,11 +27,11 @@
 				</td>
 			</tr>
 		</table>
-		
+
 	<?=h_form::close() ?>
-	
+
 	<hr>
-	
+
 	<a href="/users/registration/">Регистрация</a> |
 	<a href="/users/password_recovery/">Забыли пароль?</a>
 </div>

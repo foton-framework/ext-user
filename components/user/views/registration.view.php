@@ -1,12 +1,12 @@
-<? $this->seo->title('Регистрация нового пользователя') ?>
-<? $this->seo->h1('Регистрация нового пользователя') ?>
+<? $this->template->title('Регистрация нового пользователя') ?>
+<? $this->template->h1('Регистрация нового пользователя') ?>
 
 
 <div class="box">
 <?=h_form::open_multipart() ?>
 
 	<?=$this->form->form_errors() ?>
-	
+
 	<table class="wrapper">
 		<? foreach ($fields as $field): ?>
 		<tr>
@@ -22,8 +22,8 @@
 			</td>
 		</tr>
 	</table>
-	
+
 	<?=h_form::submit('Продолжить') ?>
-	
+
 <?=h_form::close() ?>
 </div>
