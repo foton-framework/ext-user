@@ -268,7 +268,7 @@ class EXT_MODEL_User extends SYS_Model_Database
 
 	//--------------------------------------------------------------------------
 
-	public function prepare_row_result(&$row)
+	public function prepare_row_result($row)
 	{
 		if (isset($row->regdate))    $row->regdate    = hlp::date($row->regdate);
 		if (isset($row->last_visit)) $row->last_visit = $row->last_visit ? hlp::date($row->last_visit) : 'никогда';

@@ -33,7 +33,7 @@ class EXT_User
 
 	public function __construct()
 	{
-		sys::set_config_items(&$this, 'user');
+		sys::set_config_items($this, 'user');
 
 		$this->set_session_id();
 
@@ -64,7 +64,7 @@ class EXT_User
 		}
 
 		require dirname(__FILE__) . '/user_permission' . EXT;
-		$this->permission = new EXT_User_Permission(&$this);
+		$this->permission = new EXT_User_Permission($this);
 	}
 
 	//--------------------------------------------------------------------------
@@ -175,7 +175,7 @@ class EXT_User
 
 		$this->model->db->where('id=?', $row->id)->update('users', array('last_visit'=>time()));
 
-		$this->update_session(&$row);
+		$this->update_session($row);
 
 		//$_SESSION['id']       = $row->id;
 		//$_SESSION['group_id'] = $row->group_id;
